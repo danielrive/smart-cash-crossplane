@@ -24,25 +24,25 @@ module "kms_key_eks" {
   enable_key_rotation = true
 }
 
-##########################
-# EKS Cluster
-##########################
+# ##########################
+# # EKS Cluster
+# ##########################
 
-module "eks_cluster" {
-  source                       = "./modules/eks"
-  environment                  = var.environment
-  region                       = var.region
-  project_name                 = var.project_name
-  cluster_version              = "1.26"
-  subnet_ids                   = module.networking.main.private_subnets
-  retention_control_plane_logs = 7
-  instance_type_worker_nodes   = var.environment == "develop" ? ["t3.medium"] : ["t3.medium"]
-  AMI_for_worker_nodes         = "AL2_x86_64"
-  desired_nodes                = 1
-  max_instances_node_group     = 1
-  min_instances_node_group     = 1
-  private_endpoint_api         = true
-  public_endpoint_api          = true
-  kms_arn                      = module.kms_key_eks.kms_arn
-  userRoleARN                  = "arn:aws:iam::${data.aws_caller_identity.id_account.id}:role/user-mgnt-eks-cluster"
-}
+# module "eks_cluster" {
+#   source                       = "./modules/eks"
+#   environment                  = var.environment
+#   region                       = var.region
+#   project_name                 = var.project_name
+#   cluster_version              = "1.26"
+#   subnet_ids                   = module.networking.main.private_subnets
+#   retention_control_plane_logs = 7
+#   instance_type_worker_nodes   = var.environment == "develop" ? ["t3.medium"] : ["t3.medium"]
+#   AMI_for_worker_nodes         = "AL2_x86_64"
+#   desired_nodes                = 1
+#   max_instances_node_group     = 1
+#   min_instances_node_group     = 1
+#   private_endpoint_api         = true
+#   public_endpoint_api          = true
+#   kms_arn                      = module.kms_key_eks.kms_arn
+#   userRoleARN                  = "arn:aws:iam::${data.aws_caller_identity.id_account.id}:role/user-mgnt-eks-cluster"
+# }
