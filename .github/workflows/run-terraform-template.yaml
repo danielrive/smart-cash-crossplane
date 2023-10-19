@@ -91,7 +91,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: get eks creds
         run: |
-                aws eks update-kubeconfig --name ${{ env.PROJECT_NAME }}-${{ env.ENVIRONMENT }}' --region '${{ env.AWS_REGION }}
+                aws eks update-kubeconfig --name ${{ env.PROJECT_NAME }}-${{ env.ENVIRONMENT }}' --region '${{ env.AWS_REGION }}'
       - name: install argocd 
         run: |
             kubectl create namespace argocd
