@@ -79,3 +79,21 @@ jobs:
         uses: ./.github/actions/terraform-apply
         with:
           WORKING_DIRECTORY: '/infra-base/terraform'
+  install-argocd:
+    runs-on: ubuntu-latest
+    needs: terraform-apply
+    steps:
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: 'arn:aws:iam::${{ secrets.AWS_ACCOUNT_NUMBER }}:role/GithubActions-smart-cash-crossplane'
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+      - name: get eks creds
+        run: |
+                aws eks update-kubeconfig --name ${{ env.PROJECT_NAME }}-${{ env.ENVIRONMENT }}' --region '${{ env.AWS_REGION }}
+      - name: install argocd 
+        run: |
+            kubectl create namespace argocd
+            kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml     
+
