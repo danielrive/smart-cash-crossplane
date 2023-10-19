@@ -6,10 +6,6 @@ inputs:
     description: 'directory where the tf code is'
     required: false
     default: '/infra-base/terraform'
-  PATH_FLUX_REPO:
-    description: ' GH token to push file to repo where manifest will be stored'
-    required: true
-    default: 'empty'
 
 runs:
   using: "composite"
@@ -47,6 +43,4 @@ runs:
            -input=false \
            ${{ github.run_id }}.tfplan
       shell: bash
-      env:
-          GITHUB_TOKEN: '${{ inputs.PATH_FLUX_REPO }}'
       working-directory: '.${{ inputs.WORKING_DIRECTORY }}'
