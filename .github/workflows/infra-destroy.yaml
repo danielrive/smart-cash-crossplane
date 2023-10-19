@@ -13,14 +13,13 @@ permissions:
 defaults:
   run:
     shell: bash
-    working-directory: ./infra/terraform
+    working-directory: ./infra-base/terraform
 
 env:
   ENVIRONMENT: "develop"
   AWS_REGION: "us-west-2"
   PROJECT_NAME: "smart-cash"
   TERRAFORM_VERSION: '1.4.6'
-  GH_FLUX_REPO_NAME: 'smart-cash-gitops-flux'
   BRANCH_NAME: 'develop'
   WORKING_DIRECTORY: './infra/terraform'
 
@@ -48,8 +47,8 @@ jobs:
      - name: Run terraform init
        id: 'tf-init'
        run: |
-              BUCKET_NAME="dr-${{ env.PROJECT_NAME }}-tf-state-lock-${{ env.ENVIRONMENT }}-${{ env.AWS_REGION }}" 
-              DYNAMODB_TABLE="dr-${{ env.PROJECT_NAME }}-tf-state-${{ env.ENVIRONMENT }}-${{ env.AWS_REGION }}"
+              BUCKET_NAME="${{ env.PROJECT_NAME }}-tf-state-lock-${{ env.ENVIRONMENT }}-${{ env.AWS_REGION }}" 
+              DYNAMODB_TABLE="${{ env.PROJECT_NAME }}-tf-state-${{ env.ENVIRONMENT }}-${{ env.AWS_REGION }}"
               terraform init \
               -backend-config=bucket="$BUCKET_NAME" \
               -backend-config=region='${{ env.AWS_REGION }}' \

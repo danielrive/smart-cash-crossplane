@@ -23,7 +23,7 @@ defaults:
 jobs:
   terraform-deploy:
     if: ${{ github.ref == 'refs/heads/develop' || github.base_ref == 'develop' }} 
-    uses: danielrive/smart-cash/.github/workflows/run-terraform-template.yaml@develop
+    uses: danielrive/smart-cash-crossplane/.github/workflows/run-terraform-template.yaml@develop
     with: 
       AWS_REGION: 'us-west-2'
       ENVIRONMENT: 'develop'

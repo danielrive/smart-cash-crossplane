@@ -38,3 +38,4 @@ data "aws_iam_policy_document" "kms_key_policy_encrypt_logs" {
     }
   }
 }
+
