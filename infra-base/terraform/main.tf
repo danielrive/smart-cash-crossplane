@@ -12,6 +12,7 @@ module "networking" {
   public_subnets     = ["10.120.32.0/22","10.120.96.0/22", "10.120.160.0/22"]
 }
 
+
 ### KMS Key to encrypt kubernetes resources
 module "kms_key_eks" {
   source              = "./modules/kms"
