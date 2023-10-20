@@ -39,3 +39,9 @@ data "aws_iam_policy_document" "kms_key_policy_encrypt_logs" {
   }
 }
 
+#### Get R53 hosted zone for rootdr.info domain
+
+data "aws_route53_zone" "rootdr" {
+  name         = "rootdr.info."
+  private_zone = false
+}

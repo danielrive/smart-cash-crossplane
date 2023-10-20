@@ -1,6 +1,6 @@
 module "vpc" {
   source                                 = "terraform-aws-modules/vpc/aws"
-  version                                = "4.0.1"
+  version                                = "5.1.2"
   name                                   = "vpc-${var.project_name}-${var.environment}"
   cidr                                   = var.cidr
   azs                                    = var.availability_zones
@@ -16,6 +16,7 @@ module "vpc" {
   tags                                   = var.tags
   enable_dns_hostnames                   = true
   enable_dns_support                     = true
+  map_public_ip_on_launch                = true
 }
 
 
